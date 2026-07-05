@@ -1,10 +1,10 @@
 # Small-Scale LiDAR Scanner
 <p align="center">
-      <img src="README_Files/matlablogo.png" alt="c++matlablogo.png" style="height:60px;"/>
+      <img src="README_Files/matlablogo.png" alt="c++matlablogo.png" style="height:80px;"/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="README_Files/microcontroller.png" alt="microcontroller.png" style="height:60px;"/>
+      <img src="README_Files/microcontroller.png" alt="microcontroller.png" style="height:80px;"/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="README_Files/tofsensor.png" alt="tofsensor.png" style="height:60px;"/>
+      <img src="README_Files/tofsensor.png" alt="tofsensor.png" style="height:80px;"/>
 </p>
 ### Overview
 This project is a low-cost, portable LiDAR (Light Detection and Ranging) scanner engineered for 3D spatial mapping of indoor environments. It was developed as a final project for the COMPENG 2DX3 course at McMaster University. 
