@@ -1,0 +1,93 @@
+% Aditya Ganguli - 400572384 - gangua5 
+ % 2DX3 Final Project 
+ clear; 
+ % Connect to serial port for data communication 
+ s = serialport("COM4", 115200); 
+ flush(s); 
+ % Define parameters 
+ depth = 2;              
+ num_measurements = 32*2;  
+ x_displacement = 100;   
+ results = zeros(0,3); 
+ input("Begin collecting data..."); 
+ write(s, 's', "char");  
+ i = 0; 
+ while (i <= depth*num_measurements-1)  
+     data = readline(s); 
+     if (isempty(data)) 
+         continue; 
+     end 
+      
+     tmp = parse(data, i, num_measurements); 
+      
+     if tmp(1) == 0 && tmp(2) == 0 && tmp(3) == 0 
+         continue; % Skip to the next line WITHOUT incrementing i 
+     end 
+      
+     disp(tmp); 
+     results = vertcat(results, tmp);  
+     i=i+1; 
+ end 
+ measurement_data = results.'; 
+ % cleanup bad points
+ measurement_data(1, measurement_data(1,:) == 0) = NaN;
+ % Convert polar to Cartesian 
+ [y, z] = pol2cart((measurement_data(2,:) + 90).*(pi/180), measurement_data(1,:)); 
+ % X is determined by the depth index multiplied by our 100mm displacement 
+ x = measurement_data(3,:) * x_displacement; 
+ cartesian_data = [x; y; z]; 
+ % Create Plots 
+ figure; 
+ scatter3(cartesian_data(1,:), cartesian_data(2,:), cartesian_data(3,:), 'filled'); 
+ hold on; 
+ % Draw everything
+ for d = 1:depth 
+     offset = (d-1)*num_measurements; 
+     for j = 1:num_measurements-1 
+
+         plot3(cartesian_data(1,offset+j:offset+j+1), cartesian_data(2,offset+j:offset+j+1), cartesian_data(3,offset+j:offset+j+1), 'b-'); 
+     end 
+
+     plot3([cartesian_data(1,offset+1), cartesian_data(1,offset+num_measurements)], [cartesian_data(2,offset+1), cartesian_data(2,offset+num_measurements)], [cartesian_data(3,offset+1), cartesian_data(3,offset+num_measurements)], 'b-'); 
+ end 
+ for d = 1:depth-1 
+     for j = 1:num_measurements 
+         p1 = (d-1)*num_measurements + j; 
+         p2 = d*num_measurements + j; 
+
+         plot3([cartesian_data(1,p1), cartesian_data(1,p2)], [cartesian_data(2,p1), cartesian_data(2,p2)], [cartesian_data(3,p1), cartesian_data(3,p2)], 'r--'); 
+     end 
+ end 
+
+ hold off; 
+ title('Aditya Ganguli - 400572384 - gangua5 - 2DX3 Final Project Visualization'); 
+ xlabel('X Depth (mm)'); 
+ ylabel('Y Width (mm)'); 
+ zlabel('Z Height (mm)'); 
+ grid on; 
+ set(gca, 'YDir', 'reverse');
+ pbaspect([3 1 1]); 
+
+ % Parse function
+ function parsed_data = parse(n, current_index, step) 
+     incoming_string = n; 
+      
+     % Separate the variables by commas. Now expects: "Angle, Distance" 
+     parsed_variables = sscanf(incoming_string, '%f, %f'); 
+      
+     % If it receives text instead of numbers (e.g. boot text), return zeros 
+     if length(parsed_variables) < 2 
+         parsed_data = [0, 0, 0]; 
+         return; 
+     end 
+      
+     % Grab the exact angle and distance directly from the C code string 
+     angle = parsed_variables(1);  
+     distance = parsed_variables(2); 
+      
+     % Calculate Depth Index (0, 1, or 2) to figure out which slice we are on 
+     slice_depth = floor(current_index / step); 
+      
+     % Return format for array building: [Distance, Angle, Depth] 
+     parsed_data = [distance, angle, slice_depth]; 
+ end
