@@ -6,6 +6,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="README_Files/tofsensor.png" alt="tofsensor.png" style="height:80px;"/>
 </p>
+
 ### Overview
 This project is a low-cost, portable LiDAR (Light Detection and Ranging) scanner engineered for 3D spatial mapping of indoor environments. It was developed as a final project for the COMPENG 2DX3 course at McMaster University. 
 
@@ -67,3 +68,9 @@ Connect the VL53L1X sensor and the ULN2003 driver board to the microcontroller a
 * **Range Restrictions:** The ToF sensor maxes out at a distance measurement of 4 meters, making it strictly applicable for indoor scans.
 * **Execution Speed:** Scanning speed is inherently bottlenecked by the stepper motor's velocity, the sensor requiring the motor to pause to accurately gather data (20-1000ms), and the required time to detangle the sensor wiring after each full rotation.
 * **Hardware Precision:** The inexpensive 28BYJ-48 stepper motor introduces a +/- 5% error per step, which can cause minor spatial deviations in the final visualization.
+
+### Scan Images
+
+![Scan 1 Description](README_Files/scan1.png)
+![Scan 2 Description](README_Files/scan2.png)
+![Scan 3 Description](README_Files/scan3.png)
