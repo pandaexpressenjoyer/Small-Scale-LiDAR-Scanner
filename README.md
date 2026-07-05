@@ -70,7 +70,6 @@ Connect the VL53L1X sensor and the ULN2003 driver board to the microcontroller a
 * **Hardware Precision:** The inexpensive 28BYJ-48 stepper motor introduces a +/- 5% error per step, which can cause minor spatial deviations in the final visualization.
 
 ### Scan Images
-
-![Scan 1 Description](README_Files/scan1.png)
-![Scan 2 Description](README_Files/scan2.png)
-![Scan 3 Description](README_Files/scan3.png)
+<img src="README_Files/scan1.png" width="800" alt="Scan 1">
+<img src="README_Files/scan2.png" width="800" alt="Scan 2">
+<img src="README_Files/scan3.png" width="800" alt="Scan 3">
